@@ -11,6 +11,13 @@ package com.mycompany.atmproject2;
 public class ATMProject2 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        UserClass newUser = new UserClass();
+        newUser.userBalance = 0;
+        
+        System.out.println("Hello and welcome to the BBC! The Big Banking Corporation!");
+        
     }
 }
+
+//commit
+//then push
