@@ -3,8 +3,6 @@
  */
 
 package com.mycompany.atmproject2;
-import java.util.Scanner;
-
 /**
  *
  * @author txbrown
