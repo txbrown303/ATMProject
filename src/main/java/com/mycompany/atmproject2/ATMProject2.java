@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.atmproject2;
+import java.util.Scanner;
 
 /**
  *
@@ -15,6 +16,11 @@ public class ATMProject2 {
         newUser.userBalance = 0;
         
         System.out.println("Hello and welcome to the BBC! The Big Banking Corporation!");
+        
+        UserInputs userInputs = new UserInputs(newUser);
+        
+        userInputs.ListenForInputs();
+        
         
     }
 }
