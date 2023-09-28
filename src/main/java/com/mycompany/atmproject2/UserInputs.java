@@ -104,12 +104,12 @@ public class UserInputs {
             
            
         }
-        else if (input.startsWith("/exit")){
+        else if (input.startsWith("/exit") || (input.startsWith("/EXIT"))){
             System.out.println("Thank you for using the BBC. Logging you out...");
             System.exit(0);
         }
         else{
-            System.out.println("You must type '/add', '/minus' or '/exit'.");
+            System.out.println("You must type '/balance', /add', '/minus' or '/exit'.");
         }
     } 
         
