@@ -4,6 +4,8 @@
  */
 package com.mycompany.atmproject2;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author txbrown
@@ -29,7 +31,8 @@ public class UserInputs {
     }
     
     public void readUserInputs(){
-        EnterPin pin = new EnterPin("1234");
+        PinHandler pin = new PinHandler("1234");
+        
         if (isUserLoggedIn == false){
             Boolean isPinCorrect = pin.CheckPin();
                     
@@ -44,8 +47,17 @@ public class UserInputs {
             }
             
             if (loginStrikes == 3){
-                shouldExit = true;
-                System.out.println("ACCOUNT LOCKED.");
+                
+                System.out.println("TERMINAL LOCKED FOR 30 SECONDS");
+                
+                try {
+                    Thread.sleep(30000);
+                    
+                    System.out.println("TERMINAL IS UNLOCKED");
+                    loginStrikes = 0;
+                } catch (InterruptedException ex) {
+                    System.out.println("ERROR OCCCCCCCVCUHREOUEHRAWHB");
+                }
                 
                 return;
             }
@@ -54,7 +66,7 @@ public class UserInputs {
         }
         
                        
-        System.out.println("-----------------------------------------------\nType '/add' to add to your balance.\n\nType '/minus' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
+        System.out.println("-----------------------------------------------\nType '/balance' to see your current balance.\n\nType '/add' to add to your balance.\n\nType '/minus' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
         
         String input = inputScanner.nextLine();
         
@@ -62,8 +74,6 @@ public class UserInputs {
             System.out.println("How much money would you like to deposit?");
             String amountToAdd = inputScanner.nextLine();
             
-            
-           
                 try {
                     int amount = Integer.parseInt(amountToAdd);
                     currentUser.increaseUserBalance(amount);
@@ -77,6 +87,22 @@ public class UserInputs {
         
         else if (input.startsWith("/minus") || (input.startsWith("/MINUS"))) {
             MinusCommand();
+        }
+        else if (input.startsWith("/balance") || (input.startsWith("/Balance") || (input.startsWith("/BALANCE")))){
+            System.out.println("Your current balance is: £" +currentUser.userBalance);
+            
+            System.out.println("Would you like to continue (y) or log out (n)?");
+            String exitQuestion = inputScanner.nextLine();
+            
+            if(exitQuestion.startsWith("y")){
+                
+            }
+            else if (exitQuestion.startsWith("n")){
+                System.out.println("LOGGING OUT. SHUTTING DOWN...........");
+                System.exit(0);
+            }
+            
+           
         }
         else if (input.startsWith("/exit")){
             System.out.println("Thank you for using the BBC. Logging you out...");

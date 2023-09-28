@@ -5,16 +5,20 @@
 package com.mycompany.atmproject2;
 
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
  * @author txbrown
  */
-public class EnterPin {
+public class PinHandler {
     public String pin;
+    public String pin2;
     
-    public EnterPin(String newPin){
+    public PinHandler(String newPin){
         pin = newPin; 
+        pin2 = newPin;
     }
     
     public Boolean CheckPin (){
@@ -30,7 +34,7 @@ public class EnterPin {
                 System.out.println("Pin Incorrect. Please try again.");
                 return false;
             }
-    }   
+    }
 }
 
 
