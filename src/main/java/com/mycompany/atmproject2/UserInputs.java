@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.mycompany.atmproject2.Balance;
 import java.io.IOException;
 
+        
 /**
  *
  * @author txbrown
@@ -47,11 +48,12 @@ public class UserInputs {
             }
 
             if (loginStrikes == 3) {
+                System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
                 System.out.println("TERMINAL LOCKED FOR 30 SECONDS");
 
                 try {
-                    Thread.sleep(30000);
+                    Thread.sleep(10000);
 
                     System.out.println("TERMINAL IS UNLOCKED");
                     loginStrikes = 0;
@@ -64,7 +66,8 @@ public class UserInputs {
 
             return;
         }
-
+        
+        
         System.out.println("-----------------------------------------------\nType '/balance' to see your current balance.\n\nType '/deposit' to add to your balance.\n\nType '/withdraw' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
 
         String input = inputScanner.nextLine();
@@ -93,6 +96,7 @@ public class UserInputs {
     // defining command functions
     // defing minus command function
     public void minusCommand() {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("How much would you like to withdraw?");
         String amountToMinus = inputScanner.nextLine();
         if (amountToMinus.startsWith("-")){
@@ -118,6 +122,7 @@ public class UserInputs {
     }
     // defining balance command function
     public void balanceCommand() {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         System.out.println("Your current balance is: £" + currentUser.userBalance);
 
@@ -134,11 +139,13 @@ public class UserInputs {
     }
     // defining exit function
     public void exitCommand() {
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("Thank you for using the BBC. Logging you out...");
         System.exit(0);
     }
     // defining deposit function
     public void depositCommand(){
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("How much money would you like to deposit?");
         
             String amountToAdd = inputScanner.nextLine();

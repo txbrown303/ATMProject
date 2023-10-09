@@ -32,6 +32,7 @@ public class PinHandler {
             }
             else {
                 System.out.println("Pin Incorrect. Please try again.");
+                System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 return false;
             }
     }
