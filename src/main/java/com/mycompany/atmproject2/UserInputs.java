@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mycompany.atmproject2.Balance;
+import java.io.IOException;
 
 /**
  *
@@ -54,8 +55,8 @@ public class UserInputs {
 
                     System.out.println("TERMINAL IS UNLOCKED");
                     loginStrikes = 0;
-                } catch (InterruptedException ex) {
-                    System.out.println("ERROR OCCCCCCCVCUHREOUEHRAWHB");
+                } catch (InterruptedException e) {
+                    System.out.println("ERROR OCCURED");
                 }
 
                 return;
@@ -67,6 +68,7 @@ public class UserInputs {
         System.out.println("-----------------------------------------------\nType '/balance' to see your current balance.\n\nType '/deposit' to add to your balance.\n\nType '/withdraw' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
 
         String input = inputScanner.nextLine();
+        
         // calling functions
         if (input.startsWith("/deposit") || (input.startsWith("/DEPOSIT"))) {
             depositCommand();
@@ -80,28 +82,41 @@ public class UserInputs {
         } else if (input.startsWith("/exit") || (input.startsWith("/EXIT"))) {
             exitCommand();
         } else {
-            System.out.println("You must type '/balance', /deposit', '/withdraw' or '/exit'.");
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            
+            System.out.println("\nYou must type '/balance', /deposit', '/withdraw' or '/exit'.\n");
+            
+            
+            
         }
     }
     // defining command functions
-    // defing minus function
+    // defing minus command function
     public void minusCommand() {
         System.out.println("How much would you like to withdraw?");
         String amountToMinus = inputScanner.nextLine();
+        if (amountToMinus.startsWith("-")){
+                        System.out.println("Invalid Input");
+                        }
+        else{
         try {
             int amount = Integer.parseInt(amountToMinus);
 
             if (currentUser.checkForPotentialDebt(amount)) {
                 currentUser.decreaseUserBalance(amount);
                 System.out.println("Please take your money from the dispenser. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?");
-            } else if (!currentUser.checkForPotentialDebt(amount)) {
-                System.out.println("User cannot go into debt.");
             }
-        } catch (Exception e) {
+            else if (!currentUser.checkForPotentialDebt(amount)) {
+                System.out.println("User cannot go into debt.");
+              
+            }
+             
+        } catch (NumberFormatException e) {
             System.out.println("Invalid Input");
         }
     }
-    // defining balance command
+    }
+    // defining balance command function
     public void balanceCommand() {
 
         System.out.println("Your current balance is: £" + currentUser.userBalance);
@@ -109,9 +124,10 @@ public class UserInputs {
         System.out.println("Would you like to continue (y) or log out (n)?");
         String exitQuestion = inputScanner.nextLine();
 
-        if (exitQuestion.startsWith("y")) {
+        if (exitQuestion.startsWith("y")) {}
+        
 
-        } else if (exitQuestion.startsWith("n")) {
+         else if (exitQuestion.startsWith("n")) {
             System.out.println("LOGGING OUT. SHUTTING DOWN...........");
             System.exit(0);
         }
@@ -124,14 +140,20 @@ public class UserInputs {
     // defining deposit function
     public void depositCommand(){
         System.out.println("How much money would you like to deposit?");
+        
             String amountToAdd = inputScanner.nextLine();
-
+            if (amountToAdd.startsWith("-")){
+                        System.out.println("Invalid Input");
+                        }
+            else{
+            
             try {
                 int amount = Integer.parseInt(amountToAdd);
                 currentUser.increaseUserBalance(amount);
                 System.out.println("You have successfully deposited £" + amountToAdd + " to your balance. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?\n\n");
             } catch (Exception e) {
                 System.out.println("Invalid input");
+            }
             }
     }
 
