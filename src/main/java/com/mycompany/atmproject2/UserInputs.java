@@ -23,6 +23,7 @@ public class UserInputs {
     int loginStrikes;
     Boolean isUserLoggedIn;
     Boolean shouldExit;
+    
 
     public UserInputs(UserClass user) {
         currentUser = user;
@@ -31,6 +32,12 @@ public class UserInputs {
         isUserLoggedIn = false;
         shouldExit = false;
         loginStrikes = 0;
+    }
+    
+    public void ListenForInputs() {
+        while (!shouldExit) {
+            readUserInputs();
+        }
     }
 
     public void readUserInputs() {
@@ -66,13 +73,17 @@ public class UserInputs {
 
             return;
         }
-        
-        
-        System.out.println("-----------------------------------------------\nType '/balance' to see your current balance.\n\nType '/deposit' to add to your balance.\n\nType '/withdraw' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
 
-        String input = inputScanner.nextLine();
-        
+        System.out.println("-----------------------------------------------\nType '/balance' to see your current balance.\n\nType '/deposit' to add to your balance.\n\nType '/withdraw' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
         // calling functions
+        
+        listenForCommands();
+    }
+    
+    public void listenForCommands() {
+        String input = inputScanner.nextLine();
+        input = input.toLowerCase();
+        
         if (input.startsWith("/deposit") || (input.startsWith("/DEPOSIT"))) {
             depositCommand();
 
@@ -86,11 +97,8 @@ public class UserInputs {
             exitCommand();
         } else {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            
+
             System.out.println("\nYou must type '/balance', /deposit', '/withdraw' or '/exit'.\n");
-            
-            
-            
         }
     }
     // defining command functions
@@ -99,43 +107,48 @@ public class UserInputs {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("How much would you like to withdraw?");
         String amountToMinus = inputScanner.nextLine();
-        if (amountToMinus.startsWith("-")){
-                        System.out.println("Invalid Input");
-                        }
-        else{
-        try {
-            int amount = Integer.parseInt(amountToMinus);
-
-            if (currentUser.checkForPotentialDebt(amount)) {
-                currentUser.decreaseUserBalance(amount);
-                System.out.println("Please take your money from the dispenser. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?");
-            }
-            else if (!currentUser.checkForPotentialDebt(amount)) {
-                System.out.println("User cannot go into debt.");
-              
-            }
-             
-        } catch (NumberFormatException e) {
+        
+        if (amountToMinus.startsWith("-")) {
             System.out.println("Invalid Input");
+        } else {
+            try {
+                int amount = Integer.parseInt(amountToMinus);
+
+                if (currentUser.checkForPotentialDebt(amount)) {
+                    currentUser.decreaseUserBalance(amount);
+                    System.out.println("Please take your money from the dispenser. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?");
+                } else if (!currentUser.checkForPotentialDebt(amount)) {
+                    System.out.println("User cannot go into debt.");
+
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Input");
+            }
         }
     }
-    }
+
     // defining balance command function
     public void balanceCommand() {
+        printStatement();
+        Scanner scanner = new Scanner(System.in);
+
+        String exitQuestion = scanner.nextLine();
+
+        if (exitQuestion.startsWith("y")) {
+
+        } else if (exitQuestion.startsWith("n")) {
+            System.out.println("LOGGING OUT. SHUTTING DOWN...........");
+            System.exit(0);
+        }
+    }
+    
+    public void printStatement() {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         System.out.println("Your current balance is: £" + currentUser.userBalance);
 
         System.out.println("Would you like to continue (y) or log out (n)?");
-        String exitQuestion = inputScanner.nextLine();
-
-        if (exitQuestion.startsWith("y")) {}
-        
-
-         else if (exitQuestion.startsWith("n")) {
-            System.out.println("LOGGING OUT. SHUTTING DOWN...........");
-            System.exit(0);
-        }
     }
     // defining exit function
     public void exitCommand() {
@@ -143,17 +156,17 @@ public class UserInputs {
         System.out.println("Thank you for using the BBC. Logging you out...");
         System.exit(0);
     }
+
     // defining deposit function
-    public void depositCommand(){
+    public void depositCommand() {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("How much money would you like to deposit?");
-        
-            String amountToAdd = inputScanner.nextLine();
-            if (amountToAdd.startsWith("-")){
-                        System.out.println("Invalid Input");
-                        }
-            else{
-            
+
+        String amountToAdd = inputScanner.nextLine();
+        if (amountToAdd.startsWith("-")) {
+            System.out.println("Invalid Input");
+        } else {
+
             try {
                 int amount = Integer.parseInt(amountToAdd);
                 currentUser.increaseUserBalance(amount);
@@ -161,18 +174,9 @@ public class UserInputs {
             } catch (Exception e) {
                 System.out.println("Invalid input");
             }
-            }
-    }
-
-    public void ListenForInputs() {
-        while (!shouldExit) {
-            readUserInputs();
         }
     }
-
 }
-
-
 
 
 

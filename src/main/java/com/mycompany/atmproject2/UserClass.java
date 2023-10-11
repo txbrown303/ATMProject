@@ -13,7 +13,7 @@ public class UserClass {
     
     
     public UserClass(){
-        userBalance = 0;
+        userBalance = 0;    
     }
     
     public void increaseUserBalance(int increase){
@@ -21,8 +21,7 @@ public class UserClass {
     }
     
     public void decreaseUserBalance(int decrease){
-        userBalance = userBalance - decrease;
-        
+        userBalance = userBalance - decrease;  
     }
     
     public Boolean checkForPotentialDebt(int decrease){
