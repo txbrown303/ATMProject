@@ -5,39 +5,59 @@
 package com.mycompany.atmproject2;
 
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  *
  * @author txbrown
  */
 public class PinHandler {
-    public String pin;
-    public String pin2;
-    
-    public PinHandler(String newPin){
-        pin = newPin; 
-        pin2 = newPin;
+
+    String pin;
+
+    public PinHandler() {
+        Scanner scanner = new Scanner(System.in);
+
+        Boolean i = true;
+
+        while (i) {
+
+            System.out.println("Please set your pin:");
+            String userPin = scanner.nextLine();
+
+            if (checkForInteger(userPin)) {
+                pin = userPin;
+                i = false;
+
+            } else {
+                System.out.println("Pin must be made of numbers.");
+                i = true;
+
+            }
+
+        }
     }
-    
-    public Boolean CheckPin (){
-        
+
+    public Boolean checkForInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean checkPin() {
+
         System.out.println("Please enter your pin: ");
-            Scanner scanner = new Scanner(System.in);
-            String userInput = scanner.nextLine();
-            
-            if(userInput.equals(pin)){
-                return true;
-            }
-            else {
-                System.out.println("Pin Incorrect. Please try again.");
-                System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                return false;
-            }
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        if (userInput.equals(pin)) {
+            return true;
+        } else {
+            System.out.println("Pin Incorrect. Please try again.");
+
+            return false;
+        }
     }
 }
-
-
-
-

@@ -5,12 +5,7 @@
 package com.mycompany.atmproject2;
 
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.mycompany.atmproject2.Balance;
-import java.io.IOException;
 
-        
 /**
  *
  * @author txbrown
@@ -19,11 +14,9 @@ public class UserInputs {
 
     Scanner inputScanner;
     UserClass currentUser;
-    ATMProject2 userBalance;
     int loginStrikes;
     Boolean isUserLoggedIn;
     Boolean shouldExit;
-    
 
     public UserInputs(UserClass user) {
         currentUser = user;
@@ -33,83 +26,81 @@ public class UserInputs {
         shouldExit = false;
         loginStrikes = 0;
     }
-    
+
     public void ListenForInputs() {
+        PinHandler pin = new PinHandler();
+
         while (!shouldExit) {
-            readUserInputs();
+            readUserInput(pin);
         }
     }
 
-    public void readUserInputs() {
-        PinHandler pin = new PinHandler("1234");
+    public void readUserInput(PinHandler pin) {
+        if (Boolean.FALSE.equals(isUserLoggedIn)) {
+            Boolean isPinCorrect = pin.checkPin();
 
-        if (isUserLoggedIn == false) {
-            Boolean isPinCorrect = pin.CheckPin();
-
-            if (isPinCorrect == false) {
+            if (Boolean.FALSE.equals(isPinCorrect)) {
                 loginStrikes++;
 
-            } else if (isPinCorrect == true) {
+            } else if (isPinCorrect) {
                 isUserLoggedIn = true;
                 return;
             }
 
             if (loginStrikes == 3) {
-                System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
                 System.out.println("TERMINAL LOCKED FOR 30 SECONDS");
 
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(30000);
 
                     System.out.println("TERMINAL IS UNLOCKED");
                     loginStrikes = 0;
                 } catch (InterruptedException e) {
-                    System.out.println("ERROR OCCURED");
+                    System.out.println(errorMessage());
                 }
 
-                return;
+                
             }
 
             return;
         }
 
-        System.out.println("-----------------------------------------------\nType '/balance' to see your current balance.\n\nType '/deposit' to add to your balance.\n\nType '/withdraw' to withdraw from your balance.\n\nType '/exit' to log out once you are finished.\n-----------------------------------------------\n");
+        System.out.println(menuOutput());
         // calling functions
-        
+
         listenForCommands();
     }
-    
+
     public void listenForCommands() {
         String input = inputScanner.nextLine();
         input = input.toLowerCase();
-        
-        if (input.startsWith("/deposit") || (input.startsWith("/DEPOSIT"))) {
+
+        if (input.startsWith("deposit")) {
             depositCommand();
 
-        } else if (input.startsWith("/withdraw") || (input.startsWith("/WITHDRAW"))) {
+        } else if (input.startsWith("withdraw")) {
             minusCommand();
-        } else if (input.startsWith("/balance") || (input.startsWith("/Balance") || (input.startsWith("/BALANCE")))) {
+        } else if (input.startsWith("balance")) {
 
             balanceCommand();
 
-        } else if (input.startsWith("/exit") || (input.startsWith("/EXIT"))) {
+        } else if (input.startsWith("exit")) {
             exitCommand();
         } else {
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-            System.out.println("\nYou must type '/balance', /deposit', '/withdraw' or '/exit'.\n");
+            System.out.println("\nYou must type 'balance', deposit', 'withdraw' or 'exit'.\n");
         }
     }
+
     // defining command functions
     // defing minus command function
     public void minusCommand() {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("How much would you like to withdraw?");
         String amountToMinus = inputScanner.nextLine();
-        
-        if (amountToMinus.startsWith("-")) {
-            System.out.println("Invalid Input");
+
+        if (!inputScanner.hasNextInt()) {
+            System.out.println(errorMessage());
         } else {
             try {
                 int amount = Integer.parseInt(amountToMinus);
@@ -123,14 +114,17 @@ public class UserInputs {
                 }
 
             } catch (NumberFormatException e) {
-                System.out.println("Invalid Input");
+                System.out.println(errorMessage());
             }
         }
     }
 
     // defining balance command function
-    public void balanceCommand() {
-        printStatement();
+    public String balanceCommand() {
+        System.out.println(userCurrentBalance(currentUser.userBalance));
+
+        System.out.println(continueQuestion());
+
         Scanner scanner = new Scanner(System.in);
 
         String exitQuestion = scanner.nextLine();
@@ -141,70 +135,45 @@ public class UserInputs {
             System.out.println("LOGGING OUT. SHUTTING DOWN...........");
             System.exit(0);
         }
+        return exitQuestion;
     }
-    
-    public void printStatement() {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-        System.out.println("Your current balance is: £" + currentUser.userBalance);
+    public String userCurrentBalance(int userBalance) {
 
-        System.out.println("Would you like to continue (y) or log out (n)?");
+        return "Your current balance is: £" + userBalance + "\n";
     }
+
+    public String continueQuestion() {
+
+        return "Would you like to continue (y) or log out (n)?";
+    }
+
     // defining exit function
     public void exitCommand() {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
         System.out.println("Thank you for using the BBC. Logging you out...");
         System.exit(0);
     }
 
+    public String menuOutput() {
+        return "-----------------------------------------------\nType 'balance' to see your current balance.\n\nType 'deposit' to add to your balance.\n\nType 'withdraw' to withdraw from your balance.\n\nType 'exit' to log out once you are finished.\n-----------------------------------------------\n";
+
+    }
+    
+    public String errorMessage(){
+        return "Invalid Input";
+    }
+
     // defining deposit function
     public void depositCommand() {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         System.out.println("How much money would you like to deposit?");
 
-        String amountToAdd = inputScanner.nextLine();
-        if (amountToAdd.startsWith("-")) {
-            System.out.println("Invalid Input");
+        if (!inputScanner.hasNextInt()) {
+            System.out.println(errorMessage());
         } else {
-
-            try {
-                int amount = Integer.parseInt(amountToAdd);
-                currentUser.increaseUserBalance(amount);
-                System.out.println("You have successfully deposited £" + amountToAdd + " to your balance. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?\n\n");
-            } catch (Exception e) {
-                System.out.println("Invalid input");
-            }
+            Integer amountToAdd = inputScanner.nextInt();
+            currentUser.increaseUserBalance(amountToAdd);
+            System.out.println("You have successfully deposited £" + amountToAdd + " to your balance. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?\n\n");
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
