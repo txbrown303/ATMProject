@@ -48,21 +48,21 @@ public class UserInputsNGTest {
 //            System.out.println(missMatch);
 //    }
     
-//    @Test
-//    public void testUserCurrentBalanceFake(){
-//        String expectedValue = "Your current balance is: £7\n";
-//        
-//       UserClass user = new UserClass();
-//        
-//        UserInputs userInputs = new UserInputs(user);
-//        
-//        String actualValue = userInputs.userCurrentBalance(7);
-//        
-//        System.out.println("ACTUAL VALUE: " + actualValue);
-//        System.out.println("EXOECTEd VALUE: " + expectedValue);
-//        
-//        assertEquals(actualValue, expectedValue);
-//    }
+    @Test
+    public void testUserCurrentBalanceFake(){
+        String expectedValue = "Your current balance is: £7\n";
+        
+       UserClass user = new UserClass();
+        
+        UserInputs userInputs = new UserInputs(user);
+        
+        String actualValue = userInputs.userCurrentBalance(7);
+        
+        System.out.println("ACTUAL VALUE: " + actualValue);
+        System.out.println("EXOECTEd VALUE: " + expectedValue);
+        
+        assertEquals(actualValue, expectedValue);
+    }
     
     @Test
     public void testUserCurrentBalanceIsFalse(){
