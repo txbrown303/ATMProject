@@ -23,18 +23,21 @@ public class PinHandler {
 
             System.out.println("Please set your pin:");
             String userPin = scanner.nextLine();
-
-            if (checkForInteger(userPin)) {
+            if (userPin.contains("+") || (userPin.contains("-"))) {
+                System.out.println(pinSetupChecker());
+            } else if (checkForInteger(userPin)) {
                 pin = userPin;
                 i = false;
-
             } else {
-                System.out.println("Pin must be made of numbers.");
-                i = true;
+                System.out.println(pinSetupChecker());
 
             }
 
         }
+    }
+
+    public String pinSetupChecker() {
+        return "Pin must be made of numbers.";
     }
 
     public Boolean checkForInteger(String input) {

@@ -19,4 +19,5 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>com.mycompany.atmproject2.ATMProject2</exec.mainClass>
     </properties>
+    <name>ATMProjectFinal</name>
 </project>

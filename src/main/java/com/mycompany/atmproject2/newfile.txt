@@ -1,0 +1,26 @@
+public void depositCommand() {
+
+        Boolean keepRunning = true;
+
+        while (keepRunning) {
+            System.out.println("How much money would you like to deposit?");
+
+            Scanner scanner = new Scanner(System.in);
+            String amountToAdd = scanner.nextLine();
+            if (!checkForParsableInteger(amountToAdd)) {
+                System.out.println(errorMessage());
+            } else if (amountToAdd.startsWith("+") || (amountToAdd.startsWith("-"))){
+                System.out.println("You must deposit an integer amount.");
+            } else {
+
+                int amount = Integer.parseInt(amountToAdd);
+                if (amount > 0) {
+                    currentUser.increaseUserBalance(amount);
+                    System.out.println("You have successfully deposited £" + amount + " to your balance. Your new balance is: £" + currentUser.userBalance + ". What would you like to do next?\n\n");
+                    keepRunning = false;
+                } else {
+                    System.out.println("You can't deposit a negative amount of money.\n");
+                }
+            }
+        }
+    }
