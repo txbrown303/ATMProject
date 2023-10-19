@@ -87,7 +87,7 @@ public class UserInputs {
             if (input.equals("deposit")) {
                 depositCommand();
             } else if (input.equals("withdraw")) {
-                withdrawCommand();
+                WithdrawCommand();
             } else if (input.equals("balance")) {
                 balanceCommand();
             } else if (input.equals("exit")) {
@@ -102,7 +102,7 @@ public class UserInputs {
 
     // defining command functions
     // defing minus command function
-    public void withdrawCommand() {
+    public void WithdrawCommand() {
 
         Boolean keepRunning = true;
 

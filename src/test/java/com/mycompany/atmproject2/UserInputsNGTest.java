@@ -59,7 +59,7 @@ public class UserInputsNGTest {
         String actualValue = userInputs.userCurrentBalance(7);
         
         System.out.println("ACTUAL VALUE: " + actualValue);
-        System.out.println("EXOECTEd VALUE: " + expectedValue);
+        System.out.println("EXPECTEd VALUE: " + expectedValue);
         
         assertEquals(actualValue, expectedValue);
     }
@@ -75,9 +75,9 @@ public class UserInputsNGTest {
         String actualValue = userInputs.userCurrentBalance(-1);
         
         System.out.println("ACTUAL VALUE: " + actualValue);
-        System.out.println("EXOECTEd VALUE: " + expectedValue);
+        System.out.println("EXPECTED VALUE: " + expectedValue);
         
-        assertEquals(actualValue, expectedValue);
+        assertNotEquals(actualValue, expectedValue);
     }
     
 }

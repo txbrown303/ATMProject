@@ -7,7 +7,7 @@ package com.mycompany.atmproject2;
  *
  * @author txbrown
  */
-public class ATMProject {
+public class ATMProject2 {
 
     public static void main(String[] args) {
         UserClass newUser = new UserClass();
